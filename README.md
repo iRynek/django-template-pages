@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 )
 ```
 
-* Create pages adding properly named files and folders
+* Create pages adding properly named files and folders in your ``template_pages`` template direcory, eg:
 
 ```bash
 - template_pages/       #  available at:
