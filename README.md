@@ -21,12 +21,12 @@ urlpatterns = patterns('',
 * Create pages adding properly named files and folders
 
 ```bash
-- template_pages/
--- index.html           #  available at http://localhost/
+- template_pages/       #  available at:
+-- index.html           #  http://localhost/
 -- nice-huh.html        #  http://localhost/nice-huh/
 -- nice/
---- huh.html            # http://localhost/nice/huh/
---- index.html          # http://localhost/nice/
+--- huh.html            #  http://localhost/nice/huh/
+--- index.html          #  http://localhost/nice/
 ```
 
 
