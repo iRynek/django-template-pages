@@ -3,6 +3,25 @@ django-template-pages
 
 Flat pages based on template directory structure for [django](http://djangoproject.com).
 
+
+Installation
+---
+
+* via [virtualenv](http://www.virtualenv.org/en/latest/#what-it-does) - yup we highly recommend it!
+
+```bash
+pip install django-template-pages
+```
+
+* or [download 1.0 package](https://github.com/iRynek/django-template-pages/archive/v1.0.zip), unzip and run:
+
+```bash
+python setup.py install
+```
+
+* or [download 1.0 package](https://github.com/iRynek/django-template-pages/archive/v1.0.zip), unzip and copy ``template_pages`` directory to Your ``PYTHONPATH``
+
+
 Usage
 =====================
 
@@ -75,14 +94,3 @@ Known Issues/Limitations
 * fill them in [here](https://github.com/iRynek/django-template-pages/issues)
 
 
-Installation
----
-
-* **pip install django-template-pages** (yup we highly recommend [virtualenv](http://www.virtualenv.org/en/latest/#what-it-does))
-* or [download v1.0 package](https://github.com/iRynek/django-template-pages/archive/v1.0.zip), unzip and run:
-
-```bash
-python setup.py install
-```
-
-* or [download v1.0 package](https://github.com/iRynek/django-template-pages/archive/v1.0.zip), unzip and copy ``template_pages`` directory to Your **PYTHONPATH**
