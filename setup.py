@@ -11,7 +11,7 @@ setup(name='django-template-pages',
     license='GPL',
     packages=[
         'template_pages',
-        'template_pages.',
+        'template_pages.tests',
     ],
     requires=[
         'Django',
