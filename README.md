@@ -64,6 +64,7 @@ Tips And Tricks
 ---
 * use different than ``*.html`` extension (eg. ``*.htm``) to keep base files in ``template_pages/`` structure and avoid unwanted base'ed named pages eg. ``/base/``
 * to run test just add ``template_pages`` to Your ``INSTALLED_APPS`` settings and run
+
 ``` python
 python manage.py tests template_pages
 ```
