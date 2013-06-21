@@ -1,9 +1,7 @@
 django-template-pages
 =====================
 
-
 Flat pages based on template directory structure for [django](http://djangoproject.com).
-
 
 Usage
 =====================
@@ -38,7 +36,7 @@ Adding context
 ```python
 TEMPLATE_PAGES_CONTEXT_MODULE = 'apps.core.template_pages_context'
 ```
-* create functions returing context named by Your template path:
+* create functions returning context named tweaked template path in ``TEMPLATE_PAGES_CONTEXT_MODULE``:
 
 ```python
     # context for http://localhost/ vel  template_pages/index.html
@@ -57,8 +55,7 @@ TEMPLATE_PAGES_CONTEXT_MODULE = 'apps.core.template_pages_context'
     def nice(request)
         return {'foo' : 'bar'}
 ```
-
-So contenxt function name is created by changing relative path to template and applying:
+So context function name is created by changing relative path to template and applying:
 * all ``-`` are stripped
 * all ``/`` becaming ``_``
 
