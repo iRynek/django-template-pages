@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='django-template-pages',
-    version='1.0',
+    version='1.0.1',
     description='Flat pages based on template directory structure for django.',
     author='Leszek Piatek',
     author_email='lpiatek@gmail.com',
