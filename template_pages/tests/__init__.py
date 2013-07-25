@@ -2,6 +2,8 @@
 from os.path import dirname, join
 from django.test import TestCase, Client
 from django.test.utils import override_settings
+from django.template.base import TemplateDoesNotExist
+from django.http.response import Http404
 
 _path = dirname(__file__)
 
@@ -84,3 +86,20 @@ class TestRoutingView(TestCase):
     def test_redirect_wo_trailing_slash(self):
         response = self.client.get('/test2')
         self.assertRedirects(response, '/test2/', status_code=301)
+
+    def test_not_supressing_errors(self):
+        self.assertRaises(TemplateDoesNotExist, self.client.get, '/test4/')
+
+    @override_settings(
+        DEBUG=True
+    )
+    def test_not_supressing_errors_in_debug(self):
+        self.assertRaises(TemplateDoesNotExist, self.client.get, '/test-rocket-cat-does-not-exists/')
+
+    @override_settings(
+        DEBUG=True
+    )
+    def test_supressing_errors__not_in_debug(self):
+        response = self.client.get('/test-rocket-cat-does-not-exists/')
+        self.assertEqual(response.status_code, 404)
+

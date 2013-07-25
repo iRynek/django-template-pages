@@ -28,11 +28,25 @@ def routing_view(request, path):
         ctx = get_ctx(request, path)
 
     # try template_pages/#path.html
+    first_template_path = u'template_pages%s.html' % path
     try:
-        return render(request, u'template_pages%s.html' % path, ctx)
-    except TemplateDoesNotExist:
+        return render(request, first_template_path, ctx)
+    except TemplateDoesNotExist, e:
+        # Some tags (eg. include) raise
+        # TemplateDoesNotExists(PATH) so
+        # we need to check template path
+        # with raised error and raise them
+        if str(e) != first_template_path:
+            raise
+
         # try template_pages/#path/index.html
         try:
             return render(request, u'template_pages%s/index.html' % path, ctx)
         except TemplateDoesNotExist:
+            # Return TemplateDoesNotExist
+            # errors in debug mode (for
+            # developers) otherwise page
+            # doesn't exists...
+            if settings.DEBUG:
+                raise
             raise Http404

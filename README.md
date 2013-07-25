@@ -13,13 +13,13 @@ Installation
 pip install django-template-pages
 ```
 
-* or [download 1.0 package](https://github.com/iRynek/django-template-pages/archive/v1.0.zip), unzip and run:
+* or [download 1.0.1 package](https://github.com/iRynek/django-template-pages/archive/v1.0.1.zip), unzip and run:
 
 ```bash
 python setup.py install
 ```
 
-* or [download 1.0 package](https://github.com/iRynek/django-template-pages/archive/v1.0.zip), unzip and copy ``template_pages`` directory to Your ``PYTHONPATH``
+* or [download 1.0.1 package](https://github.com/iRynek/django-template-pages/archive/v1.0.1.zip), unzip and copy ``template_pages`` directory to Your ``PYTHONPATH``
 
 
 Usage
@@ -27,11 +27,12 @@ Usage
 
 * [Install](https://github.com/iRynek/django-template-pages#installation) ``template_pages``
 * In your main template directory create ``template_pages`` folder, it will be your root template_pages directory
-* Connect ``urls.py``
+* Connect ``urls.py``, 
 
 ```python
 urlpatterns = patterns('',
-    # all others urls, template_pages.urls is last one to try!
+    url(ur'any-other', YourFancyClass.as_view()),
+    # all others urls above - template_pages.urls last one to try!
     url(ur'', include('template_pages.urls')),
 )
 ```
@@ -76,7 +77,7 @@ TEMPLATE_PAGES_CONTEXT_MODULE = 'apps.core.template_pages_context'
 ```
 So context function name is created by changing relative path to template and applying:
 * all ``-`` are stripped
-* all ``/`` becaming ``_``
+* all ``/`` became ``_``
 
 
 Tips And Tricks
@@ -94,3 +95,8 @@ Known Issues/Limitations
 * fill them in [here](https://github.com/iRynek/django-template-pages/issues)
 
 
+Changelog
+---
+1.0.1
+* do not supress ``TemplateDoesNotExists`` errors while on ``DEBUG = True``
+* do not supress ``TemplateDoesNotExists`` errors if they are raised by other stuff (eg. {% include %} template tag)
