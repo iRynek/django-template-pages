@@ -13,15 +13,6 @@ Installation
 pip install django-template-pages
 ```
 
-* or [download 1.0.1 package](https://github.com/iRynek/django-template-pages/archive/v1.0.1.zip), unzip and run:
-
-```bash
-python setup.py install
-```
-
-* or [download 1.0.1 package](https://github.com/iRynek/django-template-pages/archive/v1.0.1.zip), unzip and copy ``template_pages`` directory to Your ``PYTHONPATH``
-
-
 Usage
 =====================
 
@@ -30,11 +21,11 @@ Usage
 * Connect ``urls.py``, 
 
 ```python
-urlpatterns = patterns('',
+urlpatterns = [
     url(ur'any-other', YourFancyClass.as_view()),
     # all others urls above - template_pages.urls last one to try!
     url(ur'', include('template_pages.urls')),
-)
+]
 ```
 
 * Create pages adding properly named files and folders in your ``template_pages`` template direcory, eg:
@@ -83,20 +74,20 @@ So context function name is created by changing relative path to template and ap
 Tips And Tricks
 ---
 * use different than ``*.html`` extension (eg. ``*.htm``) to keep base files in ``template_pages/`` structure and avoid unwanted base'ed named pages eg. ``/base/``
-* to run test just add ``template_pages`` to Your ``INSTALLED_APPS`` settings and run
+* to run test just ``cd tests/test_project`` and run
 
-``` python
-python manage.py tests template_pages
+```bash
+./manage.py tests
 ```
-
 
 Known Issues/Limitations
 ---
 * fill them in [here](https://github.com/iRynek/django-template-pages/issues)
 
-
 Changelog
 ---
+1.0.2
+* support for django 1.9+
 1.0.1
 * do not supress ``TemplateDoesNotExists`` errors while on ``DEBUG = True``
 * do not supress ``TemplateDoesNotExists`` errors if they are raised by other stuff (eg. {% include %} template tag)

@@ -1,31 +1,22 @@
 # -*- coding: utf-8 -*-
-from os.path import dirname, join
-from django.test import TestCase, Client
-from django.test.utils import override_settings
-from django.template.base import TemplateDoesNotExist
-from django.http.response import Http404
+from distutils.version import StrictVersion
 
-_path = dirname(__file__)
+from django import get_version as get_django_version
+from django.test import TestCase
+from django.test.utils import override_settings
+
+if StrictVersion(get_django_version()) >= StrictVersion('1.9.0'):
+    from django.template.exceptions import TemplateDoesNotExist
+else:
+    from django.template import TemplateDoesNotExist
+
 
 @override_settings(
-    TEMPLATE_DIRS=(join(_path, 'templates'),),
-    INSTALLED_APPS=('template_pages'),
-    MIDDLEWARE_CLASSES=(
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-    ),
     TEMPLATE_PAGES_CONTEXT_MODULE=None,
+    DEBUG=False
 )
 class TestRoutingView(TestCase):
-    urls = 'template_pages.tests.urls'
-    _template_pages_test_context_module = 'template_pages.tests.template_pages_context'
-
-    def setUp(self):
-        # Every test needs a client.
-        self.client = Client()
+    _template_pages_test_context_module = 'test_project.template_pages_context'
 
     def test_file(self):
         response = self.client.get('/test1/')
@@ -87,19 +78,16 @@ class TestRoutingView(TestCase):
         response = self.client.get('/test2')
         self.assertRedirects(response, '/test2/', status_code=301)
 
-    def test_not_supressing_errors(self):
-        self.assertRaises(TemplateDoesNotExist, self.client.get, '/test4/')
-
     @override_settings(
         DEBUG=True
     )
     def test_not_supressing_errors_in_debug(self):
-        self.assertRaises(TemplateDoesNotExist, self.client.get, '/test-rocket-cat-does-not-exists/')
+        with self.assertRaises(TemplateDoesNotExist):
+            self.client.get('/test-rocket-cat-does-not-exists/')
 
     @override_settings(
-        DEBUG=True
+        DEBUG=False
     )
-    def test_supressing_errors__not_in_debug(self):
+    def test_supressing_errors_not_in_debug(self):
         response = self.client.get('/test-rocket-cat-does-not-exists/')
         self.assertEqual(response.status_code, 404)
-

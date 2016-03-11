@@ -1,10 +1,17 @@
+from distutils.version import StrictVersion
+
+from django import get_version as get_django_version
 from django.conf import settings
-from django.utils._os import safe_join
 from django.http.response import Http404
 from django.shortcuts import render
-from django.template.base import TemplateDoesNotExist
+from django.utils._os import safe_join
 
 from template_pages.utils import get_ctx
+
+if StrictVersion(get_django_version()) >= StrictVersion('1.9.0'):
+    from django.template.exceptions import TemplateDoesNotExist
+else:
+    from django.template import TemplateDoesNotExist
 
 
 def routing_view(request, path):
